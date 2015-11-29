@@ -49,6 +49,9 @@ public class FileUtil {
 		} catch (IOException e) {
 			System.err.println("writeStringToFile IOException on: " + path);
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			System.err.println("writeStringToFile NullPointerException on: " + path);
+			e.printStackTrace();
 		}
 	}
 

@@ -5,3 +5,5 @@
 *.bak
 javacore.*
 core.*
+data/*.json
+!data/20151125.json
