@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="fetcher" default="jar">
+
+    <dirname property="this.dir" file="${ant.file}"/>
+    <property name="target.loc" location="${target}"/>
+
+    <target name="init">
+        <mkdir dir="bin"/>
+    </target>
+
+    <target name="compile" depends="init"
+          description="compile the source code">
+
+    <javac target="1.7" source="1.7" srcdir="src" destdir="bin" debug="false" optimize="true">
+        <classpath>
+            <pathelement location="lib/gson-2.3.1.jar"/>
+        </classpath>
+    </javac>
+    </target>
+
+    <target name="partition">
+    <java classname="edu.utexas.datafetcher.TaskPartitioner"
+          maxmemory="8g"
+          fork="true"
+          failonerror="true">
+        <arg line="${args}"/>
+        <jvmarg value="-ea"/>
+        <classpath>
+            <pathelement location="lib/gson-2.3.1.jar"/>
+            <pathelement location="fetcher.jar"/>
+        </classpath>
+    </java>
+    </target>
+
+    <target name="jar" depends="compile"
+          description="generate the distribution" >
+        <jar jarfile="fetcher.jar" basedir="bin"/>
+    </target>
+
+    <target name="clean"
+          description="clean up" >
+        <delete dir="bin"/>
+        <delete file="fetcher.jar"/>
+    </target>
+</project>
