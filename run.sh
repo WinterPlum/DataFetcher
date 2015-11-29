@@ -3,8 +3,8 @@
 RESULT=result
 CHUNK=$1
 
-if [ ! -d data/$CHUNK.json ]; then
-    echo 'Json file does not exist'
+if [ ! -f data/$CHUNK.json ]; then
+    echo 'Json file' $CHUNK 'does not exist'
     exit 1
 fi
 

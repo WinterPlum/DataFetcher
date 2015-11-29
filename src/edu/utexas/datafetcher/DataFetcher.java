@@ -15,9 +15,12 @@ public class DataFetcher {
 		Summary summary = JsonUtil.readJson(jsonPath);
 		System.out.println(summary.getTotal() + " projects in " + jsonPath);
 		List<Project> projects = summary.getResults();
+		int total = summary.getTotal();
+		int i = 0;
 		for (Project project : projects) {
+			++i;
 			String dataPath = new File(project.getPath()).getParent();
-			System.out.println("Working on " + dataPath);
+			System.out.println(i + "/" + total + " working on " + dataPath);
 			Process proc = Runtime.getRuntime().exec(CMD + " " + dataPath + " " + chunk);
 			proc.waitFor();
 			proc.destroy();

@@ -3,7 +3,7 @@
 PREFIX=/data/remote-corpus
 NAME=$(basename $1)
 LOCATION=$PREFIX/$1/latest
-TARGET=$2
+TARGET=result/$2
 
 if [ $# -ne 2 ]; then
     echo 'Please check argument.'
