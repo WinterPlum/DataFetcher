@@ -10,6 +10,9 @@ DATA=data
 ant clean
 ant
 
+# delete previous temporary files
+rm -rf $TEMPDIR
+
 # copy files
 echo 'Distributing ...'
 mkdir $TEMPDIR
@@ -17,7 +20,9 @@ mkdir $TEMPDIR/lib
 mkdir $TEMPDIR/data
 cp $JAR $TEMPDIR/
 cp $LIBS/*.jar $TEMPDIR/lib
-cp $DATA/muse20151125.json $TEMPDIR/data
+cp $DATA/*.json $TEMPDIR/data
+cp maketar.sh $TEMPDIR/
+cp run.sh $TEMPDIR/
 
 # zip
 dir=$PWD

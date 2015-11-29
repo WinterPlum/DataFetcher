@@ -8,14 +8,20 @@ import edu.utexas.datafetcher.model.Summary;
 import edu.utexas.datafetcher.utils.JsonUtil;
 
 public class DataFetcher {
-	public static void main(String[] args) {
-		String path = "data/0.json";
-		Summary summary = JsonUtil.readJson(path);
-		System.out.println(summary.getTotal() + " projects in " + path);
+	public static final String CMD = "./maketar.sh";
+	public static void main(String[] args) throws Exception {
+		String chunk = args[0];
+		String jsonPath = "data/" + chunk + ".json";
+		Summary summary = JsonUtil.readJson(jsonPath);
+		System.out.println(summary.getTotal() + " projects in " + jsonPath);
 		List<Project> projects = summary.getResults();
-		Project proj = projects.get(1);
-		System.out.println(proj.getPath());
-		System.out.println(new File(proj.getPath()).getParentFile().getName());
-		System.out.println(path + " done.");
+		for (Project project : projects) {
+			String dataPath = new File(project.getPath()).getParent();
+			System.out.println("Working on " + dataPath);
+			Process proc = Runtime.getRuntime().exec(CMD + " " + dataPath + " " + chunk);
+			proc.waitFor();
+			proc.destroy();
+		}
+		System.out.println(jsonPath + " done.");
 	}
 }

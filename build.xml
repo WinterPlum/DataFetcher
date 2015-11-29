@@ -32,6 +32,20 @@
     </java>
     </target>
 
+    <target name="fetch">
+    <java classname="edu.utexas.datafetcher.DataFetcher"
+          maxmemory="8g"
+          fork="true"
+          failonerror="true">
+        <arg line="${args}"/>
+        <jvmarg value="-ea"/>
+        <classpath>
+            <pathelement location="lib/gson-2.3.1.jar"/>
+            <pathelement location="fetcher.jar"/>
+        </classpath>
+    </java>
+    </target>
+
     <target name="jar" depends="compile"
           description="generate the distribution" >
         <jar jarfile="fetcher.jar" basedir="bin"/>
